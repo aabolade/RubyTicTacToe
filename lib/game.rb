@@ -1,4 +1,7 @@
 class Game
+
+  attr_reader :board
+
   def initialize
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
     @com = "X" # the computer's marker
@@ -7,7 +10,7 @@ class Game
 
   def start_game
     # start by printing the board
-    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} \n===+===+===\n #{@board[3]} | #{@board[4]} | #{@board[5]} \n===+===+===\n #{@board[6]} | #{@board[7]} | #{@board[8]} \n"
+    puts display_board
     puts "Enter [0-8]:"
     # loop through until the game was won or tied
     until game_is_over(@board) || tie(@board)
@@ -17,7 +20,11 @@ class Game
       end
       puts " #{@board[0]} | #{@board[1]} | #{@board[2]} \n===+===+===\n #{@board[3]} | #{@board[4]} | #{@board[5]} \n===+===+===\n #{@board[6]} | #{@board[7]} | #{@board[8]} \n"
     end
-    puts "Game over"
+    puts display_board
+  end
+
+  def display_board
+    "#{@board[0]} | #{@board[1]} | #{@board[2]} \n===+===+===\n #{@board[3]} | #{@board[4]} | #{@board[5]} \n===+===+===\n #{@board[6]} | #{@board[7]} | #{@board[8]} \n"
   end
 
   def get_human_spot
