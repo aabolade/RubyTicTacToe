@@ -9,24 +9,25 @@ class Game
   end
 
   def start_game
-    # start by printing the board
     puts display_board
     puts "Enter [0-8]:"
-    # loop through until the game was won or tied
     until game_is_over(@board) || tie(@board)
       get_human_spot
       if !game_is_over(@board) && !tie(@board)
         eval_board
       end
-      puts " #{@board[0]} | #{@board[1]} | #{@board[2]} \n===+===+===\n #{@board[3]} | #{@board[4]} | #{@board[5]} \n===+===+===\n #{@board[6]} | #{@board[7]} | #{@board[8]} \n"
+      puts display_board
     end
-    puts display_board
+    puts display_message_for_end_of_game
   end
 
   def display_board
     "#{@board[0]} | #{@board[1]} | #{@board[2]} \n===+===+===\n #{@board[3]} | #{@board[4]} | #{@board[5]} \n===+===+===\n #{@board[6]} | #{@board[7]} | #{@board[8]} \n"
   end
 
+  def display_message_for_end_of_game
+    "Game over"
+  end
   def get_human_spot
     spot = nil
     until spot
