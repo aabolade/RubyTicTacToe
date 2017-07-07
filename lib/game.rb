@@ -1,6 +1,6 @@
 class Game
 
-  attr_reader :board
+  attr_reader :board, :com, :hum
 
   def initialize
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
@@ -110,7 +110,7 @@ class Game
      @board[4] == "4"
   end
 
-  def get_best_move(board, next_player, depth = 0, best_score = {})
+  def get_best_move(board, depth = 0, best_score = {})
     available_spaces = []
     best_move = nil
     board.each do |s|
