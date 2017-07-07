@@ -8,17 +8,29 @@ class Game
     @hum = "O" # the user's marker
   end
 
-  def start_game
+  def play_game
     puts display_board
     puts "Enter [0-8]:"
+    run_game
+    puts display_message_for_end_of_game
+  end
+
+  def run_game
     until game_is_over(@board) || tie(@board)
       get_human_spot
-      if !game_is_over(@board) && !tie(@board)
-        eval_board
-      end
+      evalute_board_if_game_is_not_finished
       puts display_board
     end
-    puts display_message_for_end_of_game
+  end
+
+  def evalute_board_if_game_is_not_finished
+    if game_not_over?
+      eval_board
+    end
+  end
+
+  def game_not_over?
+    !game_is_over(@board) && !tie(@board)
   end
 
   def display_board
@@ -32,12 +44,36 @@ class Game
     spot = nil
     until spot
       spot = gets.chomp.to_i
-      if @board[spot] != "X" && @board[spot] != "O"
-        @board[spot] = @hum
-      else
-        spot = nil
+      if spot_is_out_of_bounds(spot)
+        puts asks_player_for_input
+        redo
       end
+      assign_spot_if_space_free(spot)
     end
+  end
+
+  def assign_spot_if_space_free(spot)
+    if board_space_is_free(spot)
+      assign_spot(spot)
+    else
+      spot = nil
+    end
+  end
+
+  def spot_is_out_of_bounds(spot)
+    spot > @board.count - 1
+  end
+
+  def asks_player_for_input
+    "Please select another position"
+  end
+
+  def board_space_is_free(spot)
+    @board[spot] != "X" && @board[spot] != "O"
+  end
+
+  def assign_spot(spot)
+    @board[spot] = @hum
   end
 
   def eval_board
