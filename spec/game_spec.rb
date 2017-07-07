@@ -27,6 +27,8 @@ describe Game do
     end
   end
 
+
+
   describe "validating user input" do
     it "is valid when input is a string integer" do
       input = "1"
@@ -47,18 +49,19 @@ describe Game do
       input = "-3"
       expect(game.is_invalid_user_input(input)).to eq true
     end
+
   end
 
   describe "checking for a free spot on the board" do
-    it "assigns O to a space on the board if it is free" do
-      game.assign_spot_if_space_free(4)
-      expect(game.board).to eq ["0","1","2","3","O","5","6","7","8"]
-    end
-
     it "does not assign O to space if it is not free" do
       game.board[4] = "X"
-      game.assign_spot_if_space_free(4)
+      game.assign_spot_if_space_free(4,"O")
       expect(game.board).to eq ["0","1","2","3","X","5","6","7","8"]
+    end
+
+    it "assigns a spot with a specific player" do
+      game.assign_spot_if_space_free(1,"X")
+      expect(game.board).to eq ["0","X","2","3","4","5","6","7","8"]
     end
   end
 
@@ -79,6 +82,13 @@ describe Game do
 
     it "returns false when there is not a tie" do
       expect(game.tie(no_tie_board)).to eq false
+    end
+  end
+
+  describe "evaluating the board" do
+    it "assigns X to the centre if it is empty" do
+      game.eval_board
+      expect(game.board).to eq ["0","1","2","3","X","5","6","7","8"]
     end
   end
 

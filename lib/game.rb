@@ -67,16 +67,17 @@ class Game
   end
 
 
-  def assign_spot_if_space_free(spot)
+  def assign_spot_if_space_free(spot, player)
     if board_space_is_free(spot)
-      assign_spot(spot)
+      assign_spot(spot, player)
     else
       spot = nil
     end
   end
 
   def spot_is_out_of_bounds(spot)
-    spot > @board.count - 1
+    maximum_index = @board.count - 1
+    spot.to_i > maximum_index
   end
 
   def asks_player_for_input
@@ -87,25 +88,26 @@ class Game
     @board[spot] != "X" && @board[spot] != "O"
   end
 
-  def assign_spot(spot)
-    @board[spot] = @hum
+  def assign_spot(spot, player)
+    @board[spot] = player
   end
+
 
   def eval_board
     spot = nil
     until spot
-      if @board[4] == "4"
+      if centre_grid_empty
         spot = 4
-        @board[spot] = @com
+        assign_spot(spot, @com)
       else
         spot = get_best_move(@board, @com)
-        if @board[spot] != "X" && @board[spot] != "O"
-          @board[spot] = @com
-        else
-          spot = nil
-        end
+        assign_spot_if_space_free(spot,@com)
       end
     end
+  end
+
+  def centre_grid_empty
+     @board[4] == "4"
   end
 
   def get_best_move(board, next_player, depth = 0, best_score = {})
