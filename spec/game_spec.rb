@@ -30,19 +30,23 @@ describe Game do
   describe "validating user input" do
     it "is valid when input is a string integer" do
       input = "1"
-      expect(game.is_valid_user_input(input)).to eq true
+      expect(game.is_invalid_user_input(input)).to eq false
     end
 
     it "is invalid when the input is a string of characters" do
       input = "invalid input"
-      expect(game.is_valid_user_input(input)).to eq false
+      expect(game.is_invalid_user_input(input)).to eq true
     end
 
     it "is invalid when the input is a string of float" do
       input = "1.2"
-      expect(game.is_valid_user_input(input)).to eq false
+      expect(game.is_invalid_user_input(input)).to eq true
     end
 
+    it "is invalid when the input is a string of a negative integer" do
+      input = "-3"
+      expect(game.is_invalid_user_input(input)).to eq true
+    end
   end
 
   describe "checking for a free spot on the board" do

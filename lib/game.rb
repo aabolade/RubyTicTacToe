@@ -40,10 +40,16 @@ class Game
   def display_message_for_end_of_game
     "Game over"
   end
+
+
   def get_human_spot
     spot = nil
     until spot
       spot = get_user_input
+      if is_invalid_user_input(spot)
+        puts "the following input is invalid please try again"
+        redo
+      end
       if spot_is_out_of_bounds(spot)
         puts asks_player_for_input
         redo
@@ -52,16 +58,12 @@ class Game
     end
   end
 
-  def refactor
-
-  end
-
   def get_user_input
     gets.chomp
   end
 
-  def is_valid_user_input(input)
-    input.to_i.to_s == input
+  def is_invalid_user_input(input)
+    input.to_i.to_s != input || input.to_i < 0
   end
 
 
