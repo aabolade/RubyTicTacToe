@@ -43,7 +43,7 @@ class Game
   def get_human_spot
     spot = nil
     until spot
-      spot = gets.chomp.to_i
+      spot = get_user_input
       if spot_is_out_of_bounds(spot)
         puts asks_player_for_input
         redo
@@ -51,6 +51,19 @@ class Game
       assign_spot_if_space_free(spot)
     end
   end
+
+  def refactor
+
+  end
+
+  def get_user_input
+    gets.chomp
+  end
+
+  def is_valid_user_input(input)
+    input.to_i.to_s == input
+  end
+
 
   def assign_spot_if_space_free(spot)
     if board_space_is_free(spot)

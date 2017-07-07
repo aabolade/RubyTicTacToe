@@ -27,6 +27,24 @@ describe Game do
     end
   end
 
+  describe "validating user input" do
+    it "is valid when input is a string integer" do
+      input = "1"
+      expect(game.is_valid_user_input(input)).to eq true
+    end
+
+    it "is invalid when the input is a string of characters" do
+      input = "invalid input"
+      expect(game.is_valid_user_input(input)).to eq false
+    end
+
+    it "is invalid when the input is a string of float" do
+      input = "1.2"
+      expect(game.is_valid_user_input(input)).to eq false
+    end
+
+  end
+
   describe "checking for a free spot on the board" do
     it "assigns O to a space on the board if it is free" do
       game.assign_spot_if_space_free(4)
@@ -37,10 +55,6 @@ describe Game do
       game.board[4] = "X"
       game.assign_spot_if_space_free(4)
       expect(game.board).to eq ["0","1","2","3","X","5","6","7","8"]
-    end
-
-    it "throws an error if you try to assign spot outside bounds of board" do
-      expect{game.assign_spot_if_space_free(10)}.to raise_error "this position is out of bounds"
     end
   end
 
