@@ -45,16 +45,17 @@ class Game
   def get_human_spot
     spot = nil
     until spot
-      spot = get_user_input
-      if is_invalid_user_input(spot)
+      spot_as_string = get_user_input
+      if is_invalid_user_input(spot_as_string)
         puts "the following input is invalid please try again"
         redo
       end
-      if spot_is_out_of_bounds(spot)
+      if spot_is_out_of_bounds(spot_as_string)
         puts asks_player_for_input
         redo
       end
-      assign_spot_if_space_free(spot)
+      spot_as_int = spot_as_string.to_i
+      assign_spot_if_space_free(spot_as_int,@hum)
     end
   end
 
@@ -111,36 +112,42 @@ class Game
   end
 
   def get_best_move(board, depth = 0, best_score = {})
-    available_spaces = []
-    best_move = nil
-    board.each do |s|
-      if s != "X" && s != "O"
-        available_spaces << s
-      end
-    end
+    available_spaces = collect_available_spots
     available_spaces.each do |as|
       board[as.to_i] = @com
       if game_is_over(board)
-        best_move = as.to_i
-        board[as.to_i] = as
-        return best_move
+        return current_spot_as_best_move(as)
       else
         board[as.to_i] = @hum
         if game_is_over(board)
-          best_move = as.to_i
-          board[as.to_i] = as
-          return best_move
+          return current_spot_as_best_move(as)
         else
           board[as.to_i] = as
         end
       end
     end
-    if best_move
-      return best_move
-    else
-      n = rand(0..available_spaces.count)
-      return available_spaces[n].to_i
+    get_random_spot_from(available_spaces)
+  end
+
+  def current_spot_as_best_move(spot)
+    best_move = spot.to_i
+    board[spot.to_i] = spot
+    best_move
+  end
+
+  def collect_available_spots
+    available_spaces = []
+    board.each do |s|
+      if s != "X" && s != "O"
+        available_spaces << s
+      end
     end
+    available_spaces
+  end
+
+  def get_random_spot_from(available_spaces)
+    n = rand(0...available_spaces.count)
+    available_spaces[n].to_i
   end
 
   def game_is_over(b)
