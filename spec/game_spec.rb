@@ -8,7 +8,7 @@ describe Game do
   let(:no_tie_board) {["X","1","O","3","X","O","X","O","8"]}
   let(:winner) {["O","O","O","X","X","5","6","7","8"]}
 
-  it "has two player properties that are children of the Player class" do
+  xit "has two player properties that are children of the Player class" do
     players = [game.player_1, game.player_2]
     expect(players.all? { |player| player.class.superclass == Player }).to eq true
   end
@@ -17,15 +17,16 @@ describe Game do
     expect(game.interface).not_to eq nil
   end
 
-  describe "displaying the board" do
-    it "returns the state of the current board as a string" do
-      expect(game.display_board).to eq board_string
-    end
-  end
-
   describe "ending the game" do
     it "displays a message to end the game" do
       expect(game.display_message_for_end_of_game).to eq "Game over"
+    end
+  end
+
+  describe "displaying the board" do
+    it "calls the display method on the board object" do
+      expect(game.board).to receive(:display)
+      game.display_board
     end
   end
 

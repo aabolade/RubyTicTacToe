@@ -12,7 +12,7 @@ class Game
     @board = board.spaces
     @interface = Interface.new
     @player_1 = player_1.new(@interface, board, "O")
-    @player_2 = player_2.new("X")
+    @player_2 = player_2.new("X", board)
 
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
@@ -32,12 +32,12 @@ class Game
   def run_game
     until game_is_over(@board) || tie(@board)
       get_move_for(player_1)
-      evalute_board_if_game_is_not_finished
+      get_move_for_second_player_unless_game_is_over
       puts display_board
     end
   end
 
-  def evalute_board_if_game_is_not_finished
+  def get_move_for_second_player_unless_game_is_over
     if game_not_over?
       eval_board
     end
@@ -48,32 +48,11 @@ class Game
   end
 
   def display_board
-    "#{@board[0]} | #{@board[1]} | #{@board[2]} \n===+===+===\n #{@board[3]} | #{@board[4]} | #{@board[5]} \n===+===+===\n #{@board[6]} | #{@board[7]} | #{@board[8]} \n"
+    board.display
   end
 
   def display_message_for_end_of_game
     "Game over"
-  end
-
-  def get_human_spot
-    spot = nil
-    until spot
-      spot_as_string = get_user_input
-      if is_invalid_user_input(spot_as_string)
-        puts "the following input is invalid please try again"
-        redo
-      end
-      if spot_is_out_of_bounds(spot_as_string.to_i)
-        puts asks_player_for_input
-        redo
-      end
-      spot = spot_as_string.to_i
-      assign_spot_if_space_free(spot,@hum)
-    end
-  end
-
-  def get_user_input
-    gets.chomp
   end
 
   def is_invalid_user_input(input)
@@ -86,11 +65,6 @@ class Game
     else
       spot = nil
     end
-  end
-
-  def spot_is_out_of_bounds(spot)
-    maximum_index = @board.count - 1
-    spot.to_i > maximum_index
   end
 
   def asks_player_for_input
