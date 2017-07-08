@@ -16,13 +16,18 @@ class Human
         puts "the following input is invalid please try again"
         redo
       end
-      if is_unavailable(spot)
-        puts asks_player_for_input
+      if is_unavailable(input.to_i)
+        puts "Please select another position"
         redo
       end
       spot = input.to_i
       assign_to_board(spot)
     end
+  end
+
+
+  def assign_to_board(spot)
+    board.assign_to_space(spot,self.id)
   end
 
   def get_user_input

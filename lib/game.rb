@@ -11,8 +11,8 @@ class Game
     board = Board.new
     @board = board.spaces
     @interface = Interface.new
-    @player_1 = player_1.new(@interface, @board, "X")
-    @player_2 = player_2.new("O")
+    @player_1 = player_1.new(@interface, board, "O")
+    @player_2 = player_2.new("X")
 
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
@@ -31,7 +31,6 @@ class Game
 
   def run_game
     until game_is_over(@board) || tie(@board)
-      #get_human_spot
       get_move_for(player_1)
       evalute_board_if_game_is_not_finished
       puts display_board
