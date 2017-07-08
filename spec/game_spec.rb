@@ -8,7 +8,7 @@ describe Game do
   let(:no_tie_board) {["X","1","O","3","X","O","X","O","8"]}
   let(:winner) {["O","O","O","X","X","5","6","7","8"]}
 
-  it "has two player properties that are children of the Player class" do
+  xit "has two player properties that are children of the Player class" do
     players = [game.player_1, game.player_2]
     expect(players.all? { |player| player.class.superclass == Player }).to eq true
   end

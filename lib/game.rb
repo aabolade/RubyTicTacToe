@@ -1,3 +1,8 @@
+require './lib/human'
+require './lib/computer'
+require './lib/board'
+require './lib/interface'
+
 class Game
 
   attr_reader :board, :com, :hum, :player_1, :player_2, :interface
@@ -5,9 +10,10 @@ class Game
   def initialize(player_1 = Human, player_2 = Computer)
     board = Board.new
     @board = board.spaces
-    @player_1 = player_1.new("X")
-    @player_2 = player_2.new("O")
     @interface = Interface.new
+    @player_1 = player_1.new(@interface, @board, "X")
+    @player_2 = player_2.new("O")
+
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
   end
@@ -25,7 +31,8 @@ class Game
 
   def run_game
     until game_is_over(@board) || tie(@board)
-      get_human_spot
+      #get_human_spot
+      get_move_for(player_1)
       evalute_board_if_game_is_not_finished
       puts display_board
     end
@@ -48,7 +55,7 @@ class Game
   def display_message_for_end_of_game
     "Game over"
   end
-  
+
   def get_human_spot
     spot = nil
     until spot
@@ -57,12 +64,12 @@ class Game
         puts "the following input is invalid please try again"
         redo
       end
-      if spot_is_out_of_bounds(spot_as_string)
+      if spot_is_out_of_bounds(spot_as_string.to_i)
         puts asks_player_for_input
         redo
       end
-      spot_as_int = spot_as_string.to_i
-      assign_spot_if_space_free(spot_as_int,@hum)
+      spot = spot_as_string.to_i
+      assign_spot_if_space_free(spot,@hum)
     end
   end
 

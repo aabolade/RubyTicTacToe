@@ -1,4 +1,11 @@
-require 'player'
+class Computer
 
-class Computer < Player
+  attr_reader :id
+
+  def initialize(id)
+    @id = id
+  end
+
+  def get_move
+  end
 end
