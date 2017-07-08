@@ -26,9 +26,14 @@ describe Game do
   end
 
   describe "playing the game" do
-    it "allows the user to enter their move as long as the game is not over or tied" do
-      expect(game).to receive(:get_human_spot).at_least(:once)
-      game.run_game
+    it "calls a method on player 1 to get its move" do
+      expect(game.player_1).to receive(:get_move)
+      game.get_move_for(game.player_1)
+    end
+
+    it "calls a method on player 2 to get its move" do
+      expect(game.player_2).to receive(:get_move)
+      game.get_move_for(game.player_2)
     end
   end
 

@@ -18,6 +18,10 @@ class Game
     puts display_message_for_end_of_game
   end
 
+  def get_move_for(player)
+    player.get_move
+  end
+
   def run_game
     until game_is_over(@board) || tie(@board)
       get_human_spot
