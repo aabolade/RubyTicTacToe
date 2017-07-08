@@ -1,12 +1,13 @@
 class Game
 
-  attr_reader :board, :com, :hum, :player_1, :player_2
+  attr_reader :board, :com, :hum, :player_1, :player_2, :interface
 
-  def initialize
+  def initialize(player_1 = Human, player_2 = Computer)
     board = Board.new
     @board = board.spaces
-    @player_1 = Player.new("X")
-    @player_2 = Player.new("O")
+    @player_1 = player_1.new("X")
+    @player_2 = player_2.new("O")
+    @interface = Interface.new
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
   end
@@ -47,8 +48,7 @@ class Game
   def display_message_for_end_of_game
     "Game over"
   end
-
-
+  
   def get_human_spot
     spot = nil
     until spot
@@ -71,9 +71,8 @@ class Game
   end
 
   def is_invalid_user_input(input)
-    input.to_i.to_s != input || input.to_i < 0
+    interface.validate(input)
   end
-
 
   def assign_spot_if_space_free(spot, player)
     if board_space_is_free(spot)

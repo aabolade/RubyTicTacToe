@@ -8,9 +8,13 @@ describe Game do
   let(:no_tie_board) {["X","1","O","3","X","O","X","O","8"]}
   let(:winner) {["O","O","O","X","X","5","6","7","8"]}
 
-  it "has two player properties that are instances of the Player class" do
+  it "has two player properties that are children of the Player class" do
     players = [game.player_1, game.player_2]
-    expect(players.all? { |player| player.class == Player }).to eq true
+    expect(players.all? { |player| player.class.superclass == Player }).to eq true
+  end
+
+  it "has an interface property to take input from a human player" do
+    expect(game.interface).not_to eq nil
   end
 
   describe "displaying the board" do
@@ -35,31 +39,6 @@ describe Game do
       expect(game.player_2).to receive(:get_move)
       game.get_move_for(game.player_2)
     end
-  end
-
-
-
-  describe "validating user input" do
-    it "is valid when input is a string integer" do
-      input = "1"
-      expect(game.is_invalid_user_input(input)).to eq false
-    end
-
-    it "is invalid when the input is a string of characters" do
-      input = "invalid input"
-      expect(game.is_invalid_user_input(input)).to eq true
-    end
-
-    it "is invalid when the input is a string of float" do
-      input = "1.2"
-      expect(game.is_invalid_user_input(input)).to eq true
-    end
-
-    it "is invalid when the input is a string of a negative integer" do
-      input = "-3"
-      expect(game.is_invalid_user_input(input)).to eq true
-    end
-
   end
 
   describe "checking for a free spot on the board" do
