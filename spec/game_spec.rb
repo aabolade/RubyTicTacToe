@@ -8,6 +8,11 @@ describe Game do
   let(:no_tie_board) {["X","1","O","3","X","O","X","O","8"]}
   let(:winner) {["O","O","O","X","X","5","6","7","8"]}
 
+  it "has two player properties that are instances of the Player class" do
+    players = [game.player_1, game.player_2]
+    expect(players.all? { |player| player.class == Player }).to eq true
+  end
+
   describe "displaying the board" do
     it "returns the state of the current board as a string" do
       expect(game.display_board).to eq board_string

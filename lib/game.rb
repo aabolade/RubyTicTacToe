@@ -1,9 +1,12 @@
 class Game
 
-  attr_reader :board, :com, :hum
+  attr_reader :board, :com, :hum, :player_1, :player_2
 
   def initialize
-    @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+    board = Board.new
+    @board = board.spaces
+    @player_1 = Player.new("X")
+    @player_2 = Player.new("O")
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
   end
