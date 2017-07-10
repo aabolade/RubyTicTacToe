@@ -20,6 +20,16 @@ class Board
     @spaces[spot] = player
   end
 
+  def available_spaces
+    available_spaces = []
+    spaces.each do |s|
+      if s != "X" && s != "O"
+        available_spaces << s
+      end
+    end
+    available_spaces
+  end
+
   def is_winner
     [spaces[0], spaces[1], spaces[2]].uniq.length == 1 ||
     [spaces[3], spaces[4], spaces[5]].uniq.length == 1 ||

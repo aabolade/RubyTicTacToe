@@ -31,6 +31,15 @@ describe Board do
     end
   end
 
+  describe "collecting the available spots" do
+    it "stores the available spots in an array" do
+      board.assign_to_space(0,"X")
+      board.assign_to_space(1,"X")
+      board.assign_to_space(2,"X")
+      expect(board.available_spaces).to eq ["3","4","5","6","7","8"]
+    end
+  end
+
   describe "checking for when the game is over" do
     it "returns true if either player has won the game" do
       board.assign_to_space(0,"X")
