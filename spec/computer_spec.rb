@@ -5,6 +5,7 @@ describe Computer do
   let(:id) {"X"}
   let(:opponent_id) {"O"}
   let(:board) {double(:board)}
+  let(:available_spaces) {["0","1","3","6"]}
   let(:computer) {described_class.new(id, board)}
 
   it "has an id property" do
@@ -31,17 +32,30 @@ describe Computer do
   end
 
   describe "getting the best move" do
-    xit "chooses the spot that wins the game" do
-      allow(board).to receive(:available_spaces).and_return ["0","1","2","3","5","6","7","8"]
-      allow(board).to receive(:spaces).and_return ["0","1","2","3","X","5","6","7","8"]
-      expect(computer.get_best_move(board)).to eq 2
+
+    before do
+      allow(board).to receive(:available_spaces).and_return(available_spaces)
+      allow(board).to receive(:is_winner)
+      allow(board).to receive(:assign_to_space)
     end
 
-    xit "chooses the spot that prevents the opponent winning the game" do
-      game.board[0], game.board[4], game.board[3] = [game.hum,game.hum, game.com]
-      expect(game.get_best_move(game.board)).to eq 8
+    it "first assigns its id on every available spot" do
+      available_spaces.each do |space|
+      expect(computer).to receive(:assign_id_to_spot).with(space.to_i, id)
+      end
+
+      computer.get_best_move
     end
-    #
+
+    it "chooses the spot that prevents the opponent winning the game" do
+
+    end
+
+    it "has a method to get the available spaces" do
+      expect(board).to receive(:available_spaces)
+      computer.get_available_spaces
+    end
+     #
     it "given an array of available positions, returns a random spot from the available positions" do
       available_spaces = ["1", "3", "5","6","8"]
       spot = computer.get_random_spot_from(available_spaces)

@@ -8,7 +8,7 @@ class Computer
   end
 
   def get_move
-
+    eval_board
   end
 
   def centre_grid_is_empty
@@ -19,37 +19,33 @@ class Computer
     id == "X" ? "O" : "X"
   end
 
-  def get_best_move(board)
-    available_spaces = board.available_spaces
+  def get_best_move
+    available_spaces = get_available_spaces
     available_spaces.each do |as|
-      board.spaces[as.to_i] = id
-      if game_is_over
-        return current_spot_as_best_move(as)
-      else
-        board[as.to_i] = get_opponent_id
-        if game_is_over(board)
-          return current_spot_as_best_move(as)
-        else
-          board[as.to_i] = as
-        end
-      end
+      assign_id_to_spot(as.to_i, id)
+      return reset_and_return_move(as) if game_is_over
+      assign_opponent_id_to_spot(as.to_i, get_opponent_id)
+      return reset_and_return_move(as) if game_is_over
+      reset_spot_to_empty_space(as)
     end
     get_random_spot_from(available_spaces)
   end
 
-  def find_spot_for_opponent_win(spot)
-    board[spot.to_i] = get_opponent_id
-    if game_is_over(board)
-      return current_spot_as_best_move(as)
-    else
-      board[as.to_i] = as
-    end
+  def assign_id_to_spot(spot,id)
+    board.assign_to_space(spot, id)
   end
 
-  def current_spot_as_best_move(spot)
+  def assign_opponent_id_to_spot(spot,id)
+    board.assign_to_space(spot,id)
+  end
+
+  def reset_spot_to_empty_space(spot)
+    board.assign_to_space(spot.to_i,spot)
+  end
+
+  def reset_and_return_move(spot)
+    reset_spot_to_empty_space(spot)
     best_move = spot.to_i
-    board[spot.to_i] = spot
-    best_move
   end
 
   def game_is_over
@@ -61,6 +57,10 @@ class Computer
     available_spaces[n].to_i
   end
 
+  def get_available_spaces
+    board.available_spaces
+  end
+
   def eval_board
     spot = nil
     until spot
@@ -69,7 +69,7 @@ class Computer
         board.assign_to_space(spot, self.id)
       else
         spot = get_best_move(@board, @com)
-        assign_spot_if_space_free(spot,@com)
+        board.assign_to_space(spot,self.id)
       end
     end
   end
