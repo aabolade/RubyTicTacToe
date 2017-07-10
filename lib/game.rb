@@ -59,81 +59,8 @@ class Game
     interface.validate(input)
   end
 
-  def assign_spot_if_space_free(spot, player)
-    if board_space_is_free(spot)
-      assign_spot(spot, player)
-    else
-      spot = nil
-    end
-  end
-
   def asks_player_for_input
     "Please select another position"
-  end
-
-  def board_space_is_free(spot)
-    @board[spot] != "X" && @board[spot] != "O"
-  end
-
-  def assign_spot(spot, player)
-    @board[spot] = player
-  end
-
-
-  def eval_board
-    spot = nil
-    until spot
-      if centre_grid_empty
-        spot = 4
-        assign_spot(spot, @com)
-      else
-        spot = get_best_move(@board, @com)
-        assign_spot_if_space_free(spot,@com)
-      end
-    end
-  end
-
-  def centre_grid_empty
-     @board[4] == "4"
-  end
-
-  def get_best_move(board, depth = 0, best_score = {})
-    available_spaces = collect_available_spots
-    available_spaces.each do |as|
-      board[as.to_i] = @com
-      if game_is_over(board)
-        return current_spot_as_best_move(as)
-      else
-        board[as.to_i] = @hum
-        if game_is_over(board)
-          return current_spot_as_best_move(as)
-        else
-          board[as.to_i] = as
-        end
-      end
-    end
-    get_random_spot_from(available_spaces)
-  end
-
-  def current_spot_as_best_move(spot)
-    best_move = spot.to_i
-    board[spot.to_i] = spot
-    best_move
-  end
-
-  def collect_available_spots
-    available_spaces = []
-    board.each do |s|
-      if s != "X" && s != "O"
-        available_spaces << s
-      end
-    end
-    available_spaces
-  end
-
-  def get_random_spot_from(available_spaces)
-    n = rand(0...available_spaces.count)
-    available_spaces[n].to_i
   end
 
   def game_is_over(b)

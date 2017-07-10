@@ -68,7 +68,7 @@ class Computer
         spot = 4
         board.assign_to_space(spot, self.id)
       else
-        spot = get_best_move(@board, @com)
+        spot = get_best_move
         board.assign_to_space(spot,self.id)
       end
     end
