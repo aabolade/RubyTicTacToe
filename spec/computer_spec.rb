@@ -39,18 +39,59 @@ describe Computer do
       allow(board).to receive(:assign_to_space)
     end
 
+    after do
+      computer.get_best_move
+    end
+
     it "first assigns its id on every available spot" do
       available_spaces.each do |space|
       expect(computer).to receive(:assign_id_to_spot).with(space.to_i, id)
       end
-
-      computer.get_best_move
     end
 
-    it "chooses the spot that prevents the opponent winning the game" do
+    describe "game over after assigning id to spot" do
+      it "returns the move" do
+        allow(computer).to receive(:game_is_over).and_return(true)
+        expect(computer).not_to receive(:assign_opponent_id_to_spot)
+        expect(computer).to receive(:reset_and_return_move)
+      end
 
     end
 
+    describe "game not over after assigning id to spot" do
+      it "assigns the opponent id to the spot" do
+        allow(computer).to receive(:game_is_over).and_return(false)
+        expect(computer).to receive(:assign_opponent_id_to_spot).at_least(:once)
+      end
+    end
+
+    describe "game over after assigning opponent id to spot" do
+      it "returns the move" do
+        allow(computer).to receive(:game_is_over).and_return(false,true)
+        expect(computer).not_to receive(:reset_spot_to_empty_space)
+        expect(computer).to receive(:reset_and_return_move)
+      end
+    end
+
+    describe "game not over after assigning opponent id to spot" do
+
+      before do
+        allow(computer).to receive(:game_is_over).and_return(false,false)
+      end
+
+      it "resets the spot" do
+        expect(computer).to receive(:reset_spot_to_empty_space).at_least(:once)
+      end
+
+      it "gets a random move from the available spaces" do
+        expect(computer).to receive(:get_random_spot_from).with(available_spaces)
+      end
+
+    end
+
+  end
+
+  describe "getting available spaces" do
     it "has a method to get the available spaces" do
       expect(board).to receive(:available_spaces)
       computer.get_available_spaces
@@ -61,7 +102,6 @@ describe Computer do
       spot = computer.get_random_spot_from(available_spaces)
       expect(available_spaces.include?(spot.to_s)).to eq true
     end
-
   end
 
 end
