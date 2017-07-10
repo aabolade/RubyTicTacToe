@@ -5,14 +5,14 @@ require './lib/interface'
 
 class Game
 
-  attr_reader :board, :com, :hum, :player_1, :player_2, :interface
+  attr_reader :board, :com, :hum, :player_1, :player_2, :interface, :boar
 
   def initialize(player_1 = Human, player_2 = Computer)
-    board = Board.new
-    @board = board.spaces
+    @boar = Board.new
+    @board = boar.spaces
     @interface = Interface.new
-    @player_1 = player_1.new(@interface, board, "O")
-    @player_2 = player_2.new("X", board)
+    @player_1 = player_1.new(@interface, @boar, "O")
+    @player_2 = player_2.new("X", @boar)
 
     @com = "X" # the computer's marker
     @hum = "O" # the user's marker
@@ -39,7 +39,7 @@ class Game
 
   def get_move_for_second_player_unless_game_is_over
     if game_not_over?
-      eval_board
+      get_move_for(player_2)
     end
   end
 
@@ -48,7 +48,7 @@ class Game
   end
 
   def display_board
-    board.display
+    @boar.display
   end
 
   def display_message_for_end_of_game

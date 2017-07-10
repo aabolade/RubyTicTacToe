@@ -11,6 +11,10 @@ class Board
     @spaces[spot] != "X" && @spaces[spot] != "O"
   end
 
+  def centre_grid_is_empty
+     @spaces[4] == "4"
+  end
+
   def spot_is_out_of_bounds(spot)
     maximum_index = @spaces.count - 1
     spot.to_i > maximum_index

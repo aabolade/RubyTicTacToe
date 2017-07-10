@@ -25,6 +25,17 @@ describe Board do
     end
   end
 
+  describe "checking if the centre grid is empty" do
+    it "returns true if the centre grid is empty" do
+      expect(board.centre_grid_is_empty).to eq true
+    end
+
+    it "returns false if the centre grid is not empty" do
+      board.assign_to_space(4,"O")
+      expect(board.centre_grid_is_empty).to eq false
+    end
+  end
+
   describe "displaying the board" do
     it "returns the state of the current board as a string" do
       expect(board.display).to eq board_string

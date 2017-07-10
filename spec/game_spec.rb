@@ -75,31 +75,4 @@ describe Game do
     end
   end
 
-  describe "evaluating the board" do
-    it "assigns X to the centre if it is empty" do
-      game.eval_board
-      expect(game.board).to eq ["0","1","2","3","X","5","6","7","8"]
-    end
-  end
-
-  describe "getting the best move" do
-    it "chooses the spot that wins the game" do
-      game.board[0], game.board[1] = [game.com,game.com]
-      expect(game.get_best_move(game.board)).to eq 2
-    end
-
-    it "chooses the spot that prevents the opponent winning the game" do
-      game.board[0], game.board[4], game.board[3] = [game.hum,game.hum, game.com]
-      expect(game.get_best_move(game.board)).to eq 8
-    end
-
-    it "chooses a random spot out of the available spaces" do
-      game.board[0], game.board[1], game.board[2] = [game.hum, game.com, game.hum]
-      remaining_spots = [3,4,5,6,7,8]
-      best_move = game.get_best_move(game.board)
-      expect(remaining_spots.include?(best_move)).to eq true
-    end
-
-  end
-
 end
