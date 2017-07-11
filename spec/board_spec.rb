@@ -70,4 +70,23 @@ describe Board do
       expect(board.spaces).to eq ["0","1","2","X","4","5","6","7","8"]
     end
   end
+
+  describe "checking for a tie" do
+    it "returns true when a tie has occurs" do
+      board.assign_to_space(0,"O")
+      board.assign_to_space(1,"X")
+      board.assign_to_space(2,"X")
+      board.assign_to_space(3,"X")
+      board.assign_to_space(4,"O")
+      board.assign_to_space(5,"O")
+      board.assign_to_space(6,"O")
+      board.assign_to_space(7,"O")
+      board.assign_to_space(8,"X")
+      expect(board.is_tie).to eq true
+    end
+
+    it "returns false when there is not a tie" do
+      expect(board.is_tie).to eq false
+    end
+  end
 end

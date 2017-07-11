@@ -42,36 +42,17 @@ describe Game do
     end
   end
 
-  describe "checking for a free spot on the board" do
-    it "does not assign O to space if it is not free" do
-      game.board[4] = "X"
-      game.assign_spot_if_space_free(4,"O")
-      expect(game.board).to eq ["0","1","2","3","X","5","6","7","8"]
-    end
-
-    it "assigns a spot with a specific player" do
-      game.assign_spot_if_space_free(1,"X")
-      expect(game.board).to eq ["0","X","2","3","4","5","6","7","8"]
-    end
-  end
-
-  describe "checking for when the game is over" do
-    it "returns true if either player has won the game" do
-      expect(game.game_is_over(winner)).to eq true
-    end
-
-    it "returns false if there is no winner" do
-      expect(game.game_is_over(board_string)).to eq false
+  describe "checking for a winner" do
+    it "calls a method on the board" do
+      expect(game.board).to receive(:is_winner)
+      game.game_over_or_tie
     end
   end
 
   describe "checking for a tie" do
-    it "returns true when a tie has occurs" do
-      expect(game.tie(tie_board)).to eq true
-    end
-
-    it "returns false when there is not a tie" do
-      expect(game.tie(no_tie_board)).to eq false
+    it "calls a method on the board" do
+      expect(game.board).to receive(:is_tie)
+      game.game_over_or_tie
     end
   end
 

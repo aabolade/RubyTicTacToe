@@ -45,6 +45,10 @@ class Board
     [spaces[2], spaces[4], spaces[6]].uniq.length == 1
   end
 
+  def is_tie
+    spaces.all? { |s| s == "X" || s == "O" }
+  end
+
   def display
     "#{@spaces[0]} | #{@spaces[1]} | #{@spaces[2]} \n===+===+===\n #{@spaces[3]} | #{@spaces[4]} | #{@spaces[5]} \n===+===+===\n #{@spaces[6]} | #{@spaces[7]} | #{@spaces[8]} \n"
   end

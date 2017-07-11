@@ -7,10 +7,6 @@ class Computer
     @board = board
   end
 
-  def get_move
-    eval_board
-  end
-
   def centre_grid_is_empty
     board.centre_grid_is_empty
   end
@@ -61,7 +57,7 @@ class Computer
     board.available_spaces
   end
 
-  def eval_board
+  def get_move
     spot = nil
     until spot
       if centre_grid_is_empty

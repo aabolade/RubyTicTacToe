@@ -24,7 +24,7 @@ describe Computer do
   it "assigns it's i.d to the centre if it is empty" do
     allow(board).to receive(:centre_grid_is_empty).and_return(true)
     expect(board).to receive(:assign_to_space).with(4,"X")
-    computer.eval_board
+    computer.get_move
   end
 
   it "can get the opponent id" do

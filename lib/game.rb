@@ -5,17 +5,13 @@ require './lib/interface'
 
 class Game
 
-  attr_reader :board, :com, :hum, :player_1, :player_2, :interface, :boar
+  attr_reader :board, :player_1, :player_2, :interface
 
   def initialize(player_1 = Human, player_2 = Computer)
-    @boar = Board.new
-    @board = boar.spaces
+    @board = Board.new
     @interface = Interface.new
-    @player_1 = player_1.new(@interface, @boar, "O")
-    @player_2 = player_2.new("X", @boar)
-
-    @com = "X" # the computer's marker
-    @hum = "O" # the user's marker
+    @player_1 = player_1.new(@interface, @board, "O")
+    @player_2 = player_2.new("X", @board)
   end
 
   def play_game
@@ -30,11 +26,15 @@ class Game
   end
 
   def run_game
-    until game_is_over(@board) || tie(@board)
+    until game_over_or_tie
       get_move_for(player_1)
       get_move_for_second_player_unless_game_is_over
       puts display_board
     end
+  end
+
+  def game_over_or_tie
+    board.is_winner || board.is_tie
   end
 
   def get_move_for_second_player_unless_game_is_over
@@ -44,11 +44,11 @@ class Game
   end
 
   def game_not_over?
-    !game_is_over(@board) && !tie(@board)
+    !board.is_winner && !board.is_tie
   end
 
   def display_board
-    @boar.display
+    board.display
   end
 
   def display_message_for_end_of_game
@@ -64,7 +64,6 @@ class Game
   end
 
   def game_is_over(b)
-
     [b[0], b[1], b[2]].uniq.length == 1 ||
     [b[3], b[4], b[5]].uniq.length == 1 ||
     [b[6], b[7], b[8]].uniq.length == 1 ||
