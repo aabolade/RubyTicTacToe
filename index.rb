@@ -1,4 +1,4 @@
-require './lib/game'
+require './lib/interface'
 
-game = Game.new
-game.play_game
+interface = Interface.new
+interface.ask_user_input

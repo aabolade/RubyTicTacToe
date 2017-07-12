@@ -2,7 +2,8 @@ require 'game'
 
 describe Game do
 
-  let(:game) {described_class.new}
+  let(:interface) {double(:interface)}
+  let(:game) {described_class.new(interface)}
   let(:board_string) {"0 | 1 | 2 \n===+===+===\n 3 | 4 | 5 \n===+===+===\n 6 | 7 | 8 \n"}
   let(:tie_board) {["X", "O", "X", "X","O","X","O","X","O"]}
   let(:no_tie_board) {["X","1","O","3","X","O","X","O","8"]}

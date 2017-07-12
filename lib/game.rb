@@ -7,9 +7,9 @@ class Game
 
   attr_reader :board, :player_1, :player_2, :interface
 
-  def initialize(player_1 = Human, player_2 = Computer)
+  def initialize(player_1 = Human, player_2 = Computer, interface)
     @board = Board.new
-    @interface = Interface.new
+    @interface = interface
     @player_1 = player_1.new(@interface, @board, "O")
     @player_2 = player_2.new("X", @board)
   end
@@ -61,21 +61,6 @@ class Game
 
   def asks_player_for_input
     "Please select another position"
-  end
-
-  def game_is_over(b)
-    [b[0], b[1], b[2]].uniq.length == 1 ||
-    [b[3], b[4], b[5]].uniq.length == 1 ||
-    [b[6], b[7], b[8]].uniq.length == 1 ||
-    [b[0], b[3], b[6]].uniq.length == 1 ||
-    [b[1], b[4], b[7]].uniq.length == 1 ||
-    [b[2], b[5], b[8]].uniq.length == 1 ||
-    [b[0], b[4], b[8]].uniq.length == 1 ||
-    [b[2], b[4], b[6]].uniq.length == 1
-  end
-
-  def tie(b)
-    b.all? { |s| s == "X" || s == "O" }
   end
 
 end
