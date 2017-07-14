@@ -5,20 +5,6 @@ describe Interface do
 
   let(:interface) {described_class.new}
 
-  describe "starting the game" do
-    it "calls the run_game from the game class" do
-      expect(interface.game).to receieve(:run_game)
-      interface.start
-    end
-  end
-
-  describe "setting up the game" do
-    it "provides options for user to select" do
-      expect(interface).to receive(:game_options).at_least(:once)
-      interface.ask_user_input
-    end
-  end
-
   describe "selecting the game for the user" do
      it "chooses the game computer vs computer for selecting '1'" do
        $stdin = StringIO.new("1")
@@ -40,6 +26,53 @@ describe Interface do
        interface.ask_user_input
        $stdin = STDIN
      end
+  end
+
+  describe "computer vs human game" do
+     describe "selecting the symbol" do
+       it "returns true when a valid symbol is chosen" do
+         $stdin = StringIO.new("X")
+         expect(interface.valid_symbol_selected).to eq(true)
+       end
+
+       it "returns false when a valid symbol is not chosen" do
+         $stdin = StringIO.new("symbol")
+         expect(interface.valid_symbol_selected).to eq(false)
+       end
+
+       it "continues to ask for a symbol until a valid symbol is chosen" do
+         allow(interface).to receive(:valid_symbol_selected).and_return(false, false,true)
+         expect(interface).to receive(:symbol_options).thrice
+         interface.select_symbol
+       end
+     end
+
+     describe "selecting player order" do
+       it "returns true when a valid order option is chosen" do
+         $stdin = StringIO.new("Y")
+         expect(interface.valid_order_selected).to eq(true)
+       end
+
+       it "returns false when a valid order option is not chosen" do
+         $stdin = StringIO.new("order")
+         expect(interface.valid_order_selected).to eq(false)
+       end
+
+       it "continues to ask for a symbol until a valid symbol is chosen" do
+         allow(interface).to receive(:valid_order_selected).and_return(false, false,true)
+         expect(interface).to receive(:player_order_options).thrice
+         interface.select_player_order
+       end
+     end
+
+     describe "creating the game" do
+       it "creates a game with the choices set by the user" do
+         players_dictionary = {player_1_type: Human, player_1_id: "X", player_2_type: Computer, player_2_id: "O" }
+         allow(interface).to receive(:symbol).and_return("X")
+         allow(interface).to receive(:user_is_first).and_return(true)
+         expect(interface.create_players_object(Human, Computer)).to eq players_dictionary
+       end
+      end
   end
 
   describe "validating user input" do
