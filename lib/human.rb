@@ -2,10 +2,10 @@ class Human
 
   attr_reader :interface, :board, :id
 
-  def initialize(interface, board, id)
-    @interface = interface
+  def initialize(id, board, interface)
     @id = id
     @board = board
+    @interface = interface
   end
 
   def get_move
@@ -21,10 +21,9 @@ class Human
         redo
       end
       spot = input.to_i
-      assign_to_board(spot)
     end
+    assign_to_board(spot)
   end
-
 
   def assign_to_board(spot)
     board.assign_to_space(spot,self.id)

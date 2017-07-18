@@ -4,10 +4,19 @@ describe Human do
 
   let(:board) {double(:board)}
   let(:interface) {double(:interface)}
-  let(:human) {described_class.new(interface, board, "id" )}
+  let(:id) {double(:id)}
+  let(:human) {described_class.new(id, board, interface)}
 
   it "has an id property" do
-    expect(human.id).to eq "id"
+    expect(human.id).to eq id
+  end
+
+  it "has a board property" do
+    expect(human.interface).to eq interface
+  end
+
+  it "has a board property" do
+    expect(human.board).to eq board
   end
 
   describe "getting a move" do

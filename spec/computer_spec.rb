@@ -5,8 +5,9 @@ describe Computer do
   let(:id) {"X"}
   let(:opponent_id) {"O"}
   let(:board) {double(:board)}
+  let(:interface) {double(:interface)}
   let(:available_spaces) {["0","1","3","6"]}
-  let(:computer) {described_class.new(id, board)}
+  let(:computer) {described_class.new(id, board, interface)}
 
   it "has an id property" do
     expect(computer.id).to eq id

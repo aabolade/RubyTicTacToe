@@ -11,10 +11,6 @@ class Board
     @spaces[spot] != "X" && @spaces[spot] != "O"
   end
 
-  def centre_grid_is_empty
-     @spaces[4] == "4"
-  end
-
   def spot_is_out_of_bounds(spot)
     maximum_index = @spaces.count - 1
     spot.to_i > maximum_index
@@ -51,6 +47,10 @@ class Board
 
   def display
     "#{@spaces[0]} | #{@spaces[1]} | #{@spaces[2]} \n===+===+===\n #{@spaces[3]} | #{@spaces[4]} | #{@spaces[5]} \n===+===+===\n #{@spaces[6]} | #{@spaces[7]} | #{@spaces[8]} \n"
+  end
+
+  def centre_grid_is_empty
+     @spaces[4] == "4"
   end
 
 end

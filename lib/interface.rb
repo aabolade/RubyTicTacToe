@@ -33,21 +33,15 @@ class Interface
     end
   end
 
-  def valid_game_selected
-    @game_type = get_user_input
-    @game_type == "1"|| @game_type == "2"|| @game_type == "3"
-  end
-
-  def valid_symbol_selected
-    @symbol = get_user_input.upcase
-    @symbol == "X" || @symbol == "O"
-  end
-
   def human_human
-
+    select_symbol
+    select_player_order
+    players_dictionary = create_players_object(Human, Human)
+    create_game(players_dictionary)
   end
 
   def computer_computer
+    
   end
 
   def human_computer
@@ -55,29 +49,6 @@ class Interface
     select_player_order
     players_dictionary = create_players_object(Human, Computer)
     create_game(players_dictionary)
-  end
-
-  def create_players_object(player_1, player_2)
-    players = make_game_players(player_1, player_2)
-    if user_does_not_go_first
-      players = players.reverse
-    end
-    players_dictionary = create_dictionary(players)
-  end
-
-  def user_does_not_go_first
-    @user_is_first == false
-  end
-
-  def create_game(dictionary)
-    game = Game.new(dictionary, self)
-    game.play_game
-  end
-
-
-
-  def create_dictionary(players)
-    {player_1_type: players.first[:type], player_1_id: players.first[:id], player_2_type: players.last[:type], player_2_id: players.last[:id]}
   end
 
   def select_symbol
@@ -98,16 +69,44 @@ class Interface
     end
   end
 
+  def create_players_object(player_1, player_2)
+    players = make_game_players(player_1, player_2)
+    if user_does_not_go_first
+      players = players.reverse
+    end
+    players_dictionary = create_dictionary(players)
+  end
+
+  def create_dictionary(players)
+    {player_1_type: players.first[:type], player_1_id: players.first[:id], player_2_type: players.last[:type], player_2_id: players.last[:id]}
+  end
+
+  def create_game(dictionary)
+    game = Game.new(dictionary, self)
+    game.play_game
+  end
+
+  def valid_game_selected
+    @game_type = get_user_input
+    @game_type == "1"|| @game_type == "2"|| @game_type == "3"
+  end
+
+  def valid_symbol_selected
+    @symbol = get_user_input.upcase
+    @symbol == "X" || @symbol == "O"
+  end
+
   def valid_order_selected
     order = get_user_input
     @user_is_first = order == "Y"
     order == "Y" || order == "N"
   end
 
+  def user_does_not_go_first
+    @user_is_first == false
+  end
+
   def make_game_players(player_1, player_2)
-    p symbol
-    p get_player_1_symbol
-    p get_player_2_symbol
     [{type: player_1, id: get_player_1_symbol}, {type: player_2, id: get_player_2_symbol}]
   end
 
@@ -126,14 +125,12 @@ class Interface
   end
 
   def symbol_options
-    puts "1. X"
-    puts "2. O"
+    puts "select X or O"
   end
 
   def player_order_options
     puts "select 'Y' or 'N' "
   end
-
 
   def get_user_input
     $stdin.gets.chomp
