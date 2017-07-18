@@ -41,7 +41,8 @@ class Interface
   end
 
   def computer_computer
-    
+    players_dictionary = create_players_object(Computer, Computer)
+    create_game(players_dictionary)
   end
 
   def human_computer
@@ -111,11 +112,11 @@ class Interface
   end
 
   def get_player_1_symbol
-    symbol
+    symbol ? symbol : "X"
   end
 
   def get_player_2_symbol
-    symbol == "X" ? "O": "X"
+    get_player_1_symbol == "X" ? "O": "X"
   end
 
   def game_options
