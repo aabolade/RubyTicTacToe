@@ -1,4 +1,4 @@
 require './lib/interface'
 
 interface = Interface.new
-interface.ask_user_input
+interface.present_game_options

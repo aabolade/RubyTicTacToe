@@ -9,21 +9,21 @@ describe Interface do
      it "chooses the game computer vs computer for selecting '1'" do
        $stdin = StringIO.new("1")
        expect(interface).to receive(:human_human)
-       interface.ask_user_input
+       interface.present_game_options
        $stdin = STDIN
      end
 
      it "chooses the game computer vs computer for selecting '2'" do
        $stdin = StringIO.new("2")
        expect(interface).to receive(:computer_computer)
-       interface.ask_user_input
+       interface.present_game_options
        $stdin = STDIN
      end
 
      it "chooses the game computer vs computer for selecting '2'" do
        $stdin = StringIO.new("3")
        expect(interface).to receive(:human_computer)
-       interface.ask_user_input
+       interface.present_game_options
        $stdin = STDIN
      end
   end

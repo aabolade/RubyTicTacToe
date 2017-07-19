@@ -12,7 +12,7 @@ class Interface
     @user_is_first
   end
 
-  def ask_user_input
+  def present_game_options
     game_selected = nil
     until game_selected
       puts "choose the game type:"
@@ -108,6 +108,12 @@ class Interface
     @user_is_first == false
   end
 
+  def validate(input)
+    input.to_i.to_s != input || input.to_i < 0
+  end
+
+  private
+
   def make_game_players(player_1, player_2)
     [{type: player_1, id: get_player_1_symbol}, {type: player_2, id: get_player_2_symbol}]
   end
@@ -136,14 +142,6 @@ class Interface
 
   def get_user_input
     $stdin.gets.chomp
-  end
-
-  def start
-    game.run_game
-  end
-
-  def validate(input)
-    input.to_i.to_s != input || input.to_i < 0
   end
 
 end
