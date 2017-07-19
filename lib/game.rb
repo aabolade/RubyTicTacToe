@@ -25,7 +25,6 @@ class Game
     until game_over_or_tie
       get_move_for(player_1)
       get_move_for_second_player_unless_game_is_over
-      puts display_board
     end
   end
 
@@ -36,7 +35,9 @@ class Game
   end
 
   def get_move_for(player)
+    puts "player #{player.id}'s turn'"
     player.get_move
+    puts display_board
   end
 
   def game_not_over?
