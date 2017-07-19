@@ -127,7 +127,7 @@ class Interface
   end
 
   def symbol_options
-    puts "select X or O"
+    puts "select 'X' or 'O' "
   end
 
   def player_order_options

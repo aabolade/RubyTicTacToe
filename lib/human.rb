@@ -20,6 +20,8 @@ class Human
     assign_to_board(spot)
   end
 
+  private
+
   def valid(input)
     !is_invalid(input) && !is_unavailable(input.to_i)
   end
