@@ -5,11 +5,6 @@ describe Board do
   let(:board) {described_class.new}
   let(:board_string) {"0 | 1 | 2 \n===+===+===\n 3 | 4 | 5 \n===+===+===\n 6 | 7 | 8 \n"}
 
-
-  it "has an array of spaces" do
-    expect(board.spaces.class).to eq Array
-  end
-
   describe "checking for available spaces" do
     it "returns true if a space is available" do
       expect(board.is_available(4)).to eq true

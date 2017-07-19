@@ -23,12 +23,6 @@ describe Game do
     expect(game.interface).not_to eq nil
   end
 
-  describe "ending the game" do
-    it "displays a message to end the game" do
-      expect(game.display_message_for_end_of_game).to eq "Game over"
-    end
-  end
-
   describe "displaying the board" do
     it "calls the display method on the board object" do
       expect(game.board).to receive(:display)

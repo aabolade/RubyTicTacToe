@@ -40,16 +40,18 @@ class Game
     puts display_board
   end
 
-  def game_not_over?
-    !board.is_winner && !board.is_tie
+  def display_board
+    board.display
   end
 
   def game_over_or_tie
     board.is_winner || board.is_tie
   end
 
-  def display_board
-    board.display
+  private
+
+  def game_not_over?
+    !board.is_winner && !board.is_tie
   end
 
   def display_message_for_end_of_game
