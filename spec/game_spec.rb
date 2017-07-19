@@ -4,6 +4,7 @@ describe Game do
 
   let(:player_1) {double(:player_1)}
   let(:player_2) {double(:player_2)}
+  let(:player) {double(:player)}
   let(:players) {{player_1_type: player_1, player_1_id: 1, player_2_type: player_2, player_2_id: 2}}
   let(:interface) {double(:interface)}
   let(:game) {described_class.new(players, interface)}
@@ -13,13 +14,9 @@ describe Game do
   let(:winner) {["O","O","O","X","X","5","6","7","8"]}
 
   before do
-    allow(player_1).to receive(:new)
-    allow(player_2).to receive(:new)
-  end
-
-  xit "has two player properties that are children of the Player class" do
-    players = [game.player_1, game.player_2]
-    expect(players.all? { |player| player.class.superclass == Player }).to eq true
+    allow(player_1).to receive(:new).and_return(player)
+    allow(player_2).to receive(:new).and_return(player)
+    allow(player).to receive(:id)
   end
 
   it "has an interface property to take input from a human player" do
@@ -46,6 +43,7 @@ describe Game do
     end
 
     it "calls a method on player 2 to get its move" do
+      p (game.player_2)
       expect(game.player_2).to receive(:get_move)
       game.get_move_for(game.player_2)
     end

@@ -19,20 +19,13 @@ describe Human do
     expect(human.board).to eq board
   end
 
-  describe "getting a move" do
-
-    xit "gets an input from the user" do
-      expect(human).to receive(:get_user_input)
-      human.get_move
-    end
-
-    xit "checks whether an input is valid" do
-      expect(human).to receive(:is_invalid)
-      human.get_move
-    end
-
-    xit "checks whether the spot is available" do
-      expect(human).to receive(:is_unavailable)
+  describe "when input is valid and there is space on the board" do
+    it "assigns the input to the board" do
+      allow(human).to receive(:get_user_input).and_return("1")
+      allow(human).to receive(:is_invalid).and_return(false)
+      allow(human).to receive(:is_unavailable).and_return(false)
+      allow(board).to receive(:assign_to_space)
+      expect(human).to receive(:assign_to_board).with(1)
       human.get_move
     end
 

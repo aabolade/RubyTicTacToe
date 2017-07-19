@@ -97,7 +97,7 @@ describe Computer do
       expect(board).to receive(:available_spaces)
       computer.get_available_spaces
     end
-     #
+
     it "given an array of available positions, returns a random spot from the available positions" do
       available_spaces = ["1", "3", "5","6","8"]
       spot = computer.get_random_spot_from(available_spaces)

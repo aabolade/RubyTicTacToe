@@ -12,17 +12,24 @@ class Human
     spot = nil
     until spot
       input = get_user_input
-      if is_invalid(input)
-        puts "the following input is invalid please try again"
-        redo
+      validate(input)
+      if valid(input)
+        spot = input.to_i
       end
-      if is_unavailable(input.to_i)
-        puts "Please select another position"
-        redo
-      end
-      spot = input.to_i
     end
     assign_to_board(spot)
+  end
+
+  def valid(input)
+    !is_invalid(input) && !is_unavailable(input.to_i)
+  end
+
+  def validate(input)
+    if is_invalid(input)
+      puts "the following input is invalid please try again"
+    elsif is_unavailable(input.to_i)
+      puts "Please select another position"
+    end
   end
 
   def assign_to_board(spot)
