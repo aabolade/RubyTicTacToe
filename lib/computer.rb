@@ -20,25 +20,25 @@ class Computer
     available_spaces.each do |space|
       assign_id_to_spot(space.to_i, id)
       return reset_and_return_move(space) if game_is_over
+
       reset_spot_to_empty_space(space)
     end
     get_random_spot_from(available_spaces)
   end
 
-  def centre_grid_is_empty
-    board.centre_grid_is_empty
+  def get_random_spot_from(available_spaces)
+    n = rand(0...available_spaces.count)
+    available_spaces[n].to_i
   end
 
-  def get_opponent_id
-    id == "X" ? "O" : "X"
+  def get_available_spaces
+    board.available_spaces
   end
+
+  private
 
   def assign_id_to_spot(spot,id)
     board.assign_to_space(spot, id)
-  end
-
-  def assign_opponent_id_to_spot(spot,id)
-    board.assign_to_space(spot,id)
   end
 
   def reset_and_return_move(spot)
@@ -52,15 +52,6 @@ class Computer
 
   def game_is_over
     board.is_winner
-  end
-
-  def get_random_spot_from(available_spaces)
-    n = rand(0...available_spaces.count)
-    available_spaces[n].to_i
-  end
-
-  def get_available_spaces
-    board.available_spaces
   end
 
 end

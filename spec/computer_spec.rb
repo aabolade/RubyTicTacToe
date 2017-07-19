@@ -17,15 +17,6 @@ describe Computer do
     expect(computer.board).to eq board
   end
 
-  it "has a method to check whether the centre of the board is free" do
-    expect(computer.board).to receive(:centre_grid_is_empty)
-    computer.centre_grid_is_empty
-  end
-
-  it "can get the opponent id" do
-    expect(computer.get_opponent_id).to eq opponent_id
-  end
-
   describe "getting the best move" do
 
     before do
@@ -42,15 +33,6 @@ describe Computer do
       available_spaces.each do |space|
       expect(computer).to receive(:assign_id_to_spot).with(space.to_i, id)
       end
-    end
-
-    describe "game over after assigning id to spot" do
-      it "returns the move" do
-        allow(computer).to receive(:game_is_over).and_return(true)
-        expect(computer).not_to receive(:assign_opponent_id_to_spot)
-        expect(computer).to receive(:reset_and_return_move)
-      end
-
     end
 
     describe "game not over after assigning opponent id to spot" do
