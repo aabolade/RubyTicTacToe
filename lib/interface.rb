@@ -34,10 +34,7 @@ class Interface
   end
 
   def human_human
-    select_symbol
-    select_player_order
-    players_dictionary = create_players_object(Human, Human)
-    create_game(players_dictionary)
+    set_up_players(Human,Human)
   end
 
   def computer_computer
@@ -46,9 +43,13 @@ class Interface
   end
 
   def human_computer
+    set_up_players(Human, Computer)
+  end
+
+  def set_up_players(player_1, player_2)
     select_symbol
     select_player_order
-    players_dictionary = create_players_object(Human, Computer)
+    players_dictionary = create_players_object(player_1, player_2)
     create_game(players_dictionary)
   end
 
@@ -82,8 +83,8 @@ class Interface
     {player_1_type: players.first[:type], player_1_id: players.first[:id], player_2_type: players.last[:type], player_2_id: players.last[:id]}
   end
 
-  def create_game(dictionary)
-    game = Game.new(dictionary, self)
+  def create_game(dictionary, game = Game)
+    game = game.new(dictionary, self)
     game.play_game
   end
 

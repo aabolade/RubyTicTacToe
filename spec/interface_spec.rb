@@ -102,8 +102,5 @@ describe Interface do
       input = "-3"
       expect(interface.validate(input)).to eq true
     end
-
   end
-
-
 end

@@ -43,7 +43,6 @@ describe Game do
     end
 
     it "calls a method on player 2 to get its move" do
-      p (game.player_2)
       expect(game.player_2).to receive(:get_move)
       game.get_move_for(game.player_2)
     end

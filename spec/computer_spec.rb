@@ -22,12 +22,6 @@ describe Computer do
     computer.centre_grid_is_empty
   end
 
-  it "assigns it's i.d to the centre if it is empty" do
-    allow(board).to receive(:centre_grid_is_empty).and_return(true)
-    expect(board).to receive(:assign_to_space).with(4,"X")
-    computer.get_move
-  end
-
   it "can get the opponent id" do
     expect(computer.get_opponent_id).to eq opponent_id
   end
@@ -59,21 +53,6 @@ describe Computer do
 
     end
 
-    describe "game not over after assigning id to spot" do
-      it "assigns the opponent id to the spot" do
-        allow(computer).to receive(:game_is_over).and_return(false)
-        expect(computer).to receive(:assign_opponent_id_to_spot).at_least(:once)
-      end
-    end
-
-    describe "game over after assigning opponent id to spot" do
-      it "returns the move" do
-        allow(computer).to receive(:game_is_over).and_return(false,true)
-        expect(computer).not_to receive(:reset_spot_to_empty_space)
-        expect(computer).to receive(:reset_and_return_move)
-      end
-    end
-
     describe "game not over after assigning opponent id to spot" do
 
       before do
@@ -87,9 +66,7 @@ describe Computer do
       it "gets a random move from the available spaces" do
         expect(computer).to receive(:get_random_spot_from).with(available_spaces)
       end
-
     end
-
   end
 
   describe "getting available spaces" do

@@ -7,8 +7,8 @@ class Game
 
   attr_reader :board, :player_1, :player_2, :interface
 
-  def initialize(players, interface)
-    @board = Board.new
+  def initialize(players, interface, board = Board)
+    @board = board.new
     @interface = interface
     @player_1 = players[:player_1_type].new(players[:player_1_id], @board, interface)
     @player_2 = players[:player_2_type].new(players[:player_2_id], @board, interface)
