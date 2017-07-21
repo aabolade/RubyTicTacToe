@@ -12,7 +12,7 @@ class Computer
     until spot
       spot = get_best_move
     end
-    board.assign_to_space(spot, self.id)
+    assign_id_to_spot(spot, self.id)
   end
 
   def get_best_move
@@ -20,7 +20,6 @@ class Computer
     available_spaces.each do |space|
       assign_id_to_spot(space.to_i, id)
       return reset_and_return_move(space) if game_is_over
-
       reset_spot_to_empty_space(space)
     end
     get_random_spot_from(available_spaces)

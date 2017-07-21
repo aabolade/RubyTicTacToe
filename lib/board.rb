@@ -22,9 +22,9 @@ class Board
 
   def available_spaces
     available_spaces = []
-    spaces.each do |s|
-      if s != "X" && s != "O"
-        available_spaces << s
+    spaces.each do |space|
+      if space != "X" && space != "O"
+        available_spaces << space
       end
     end
     available_spaces
@@ -42,6 +42,10 @@ class Board
   end
 
   def is_tie
+    spaces_full && !is_winner
+  end
+
+  def spaces_full
     spaces.all? { |s| s == "X" || s == "O" }
   end
 
