@@ -1,8 +1,4 @@
-To start the game enter the following command
-
-```
-ruby index.rb
-```
+# Ruby Tic Tac Toe
 
 Specifications
 ==============
@@ -24,9 +20,9 @@ Further Features
 * Allows player to choose symbol 'X' or 'O'
 * Allows player to choose whether to go first or not.
 * Three types of games:
-- player vs player
-- player vs computer
-- computer vs computer
+1. player vs player
+2. player vs computer
+3. computer vs computer
 
 Approach and Technologies used
 ==============================
