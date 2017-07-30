@@ -38,7 +38,7 @@ describe Computer do
     describe "game not over after assigning opponent id to spot" do
 
       before do
-        allow(computer).to receive(:game_is_over).and_return(false,false)
+        allow(computer).to receive(:game_is_over?).and_return(false,false)
       end
 
       it "resets the spot" do

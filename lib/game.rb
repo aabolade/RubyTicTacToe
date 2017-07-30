@@ -44,15 +44,15 @@ class Game
   end
 
   def display_message_for_end_of_game
-    if winner_present
+    if winner_present?
       "Game over. #{current_player} is the winner"
-    elsif tie_game
+    elsif tie_game?
       "Game over. Tie!"
     end
   end
 
-  def game_over_or_tie
-    winner_present || tie_game
+  def game_over_or_tie?
+    winner_present? || tie_game?
   end
 
   private
@@ -61,15 +61,15 @@ class Game
     !winner_present && !tie_game
   end
 
-  def winner_present
-    board.is_winner
+  def winner_present?
+    board.is_winner?
   end
 
-  def tie_game
-    board.is_tie
+  def tie_game?
+    board.is_tie?
   end
 
-  def is_invalid_user_input(input)
+  def is_invalid_user_input?(input)
     interface.validate(input)
   end
 

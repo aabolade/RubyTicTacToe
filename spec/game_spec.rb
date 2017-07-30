@@ -46,22 +46,22 @@ describe Game do
 
   describe "checking for a winner" do
     it "calls a method on the board" do
-      expect(game.board).to receive(:is_winner)
-      game.game_over_or_tie
+      expect(game.board).to receive(:is_winner?)
+      game.game_over_or_tie?
     end
   end
 
   describe "checking for a tie" do
     it "calls a method on the board" do
-      expect(game.board).to receive(:is_tie)
-      game.game_over_or_tie
+      expect(game.board).to receive(:is_tie?)
+      game.game_over_or_tie?
     end
   end
 
   describe "Game over message" do
     it "announces when there is a winner" do
       game.current_player = "X"
-      allow(game).to receive(:winner_present).and_return(true)
+      allow(game).to receive(:winner_present?).and_return(true)
       expect(game.display_message_for_end_of_game).to eq "Game over. X is the winner"
     end
   end

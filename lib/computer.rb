@@ -19,7 +19,7 @@ class Computer
     available_spaces = get_available_spaces
     available_spaces.each do |space|
       assign_id_to_spot(space.to_i, id)
-      return reset_and_return_move(space) if game_is_over
+      return reset_and_return_move(space) if game_is_over?
       reset_spot_to_empty_space(space)
     end
     get_random_spot_from(available_spaces)
@@ -49,7 +49,7 @@ class Computer
     board.assign_to_space(spot.to_i,spot)
   end
 
-  def game_is_over
+  def game_is_over?
     board.is_winner
   end
 

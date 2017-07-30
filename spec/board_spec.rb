@@ -7,27 +7,27 @@ describe Board do
 
   describe "checking for available spaces" do
     it "returns true if a space is available" do
-      expect(board.is_available(4)).to eq true
+      expect(board.is_available?(4)).to eq true
     end
 
     it "returns false if a space is unavailable" do
       board.assign_to_space("1","X")
-      expect(board.is_available("1")).to eq false
+      expect(board.is_available?("1")).to eq false
     end
 
     it "returns false if the spot is outside the board" do
-      expect(board.is_available("10")).to eq false
+      expect(board.is_available?("10")).to eq false
     end
   end
 
   describe "checking if the centre grid is empty" do
     it "returns true if the centre grid is empty" do
-      expect(board.centre_grid_is_empty).to eq true
+      expect(board.centre_grid_is_empty?).to eq true
     end
 
     it "returns false if the centre grid is not empty" do
       board.assign_to_space("5","O")
-      expect(board.centre_grid_is_empty).to eq false
+      expect(board.centre_grid_is_empty?).to eq false
     end
   end
 
@@ -51,11 +51,11 @@ describe Board do
       board.assign_to_space("1","X")
       board.assign_to_space("2","X")
       board.assign_to_space("3","X")
-      expect(board.is_winner).to eq true
+      expect(board.is_winner?).to eq true
     end
 
     it "returns false if there is no winner" do
-      expect(board.is_winner).to eq false
+      expect(board.is_winner?).to eq false
     end
   end
 
@@ -77,11 +77,11 @@ describe Board do
       board.assign_to_space("7","O")
       board.assign_to_space("8","O")
       board.assign_to_space("9","X")
-      expect(board.is_tie).to eq true
+      expect(board.is_tie?).to eq true
     end
 
     it "returns false when there is not a tie" do
-      expect(board.is_tie).to eq false
+      expect(board.is_tie?).to eq false
     end
   end
 end

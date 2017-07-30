@@ -6,7 +6,7 @@ class Board
     @spaces = ["1","2","3","4","5","6","7","8","9"]
   end
 
-  def is_available(spot)
+  def is_available?(spot)
     spot_index = spot.to_i - 1
     return false if spot_is_out_of_bounds(spot_index)
     @spaces[spot_index] != "X" && @spaces[spot_index] != "O"
@@ -32,7 +32,7 @@ class Board
     available_spaces
   end
 
-  def is_winner
+  def is_winner?
     [spaces[0], spaces[1], spaces[2]].uniq.length == 1 ||
     [spaces[3], spaces[4], spaces[5]].uniq.length == 1 ||
     [spaces[6], spaces[7], spaces[8]].uniq.length == 1 ||
@@ -43,11 +43,11 @@ class Board
     [spaces[2], spaces[4], spaces[6]].uniq.length == 1
   end
 
-  def is_tie
-    spaces_full && !is_winner
+  def is_tie?
+    spaces_full? && !is_winner?
   end
 
-  def spaces_full
+  def spaces_full?
     spaces.all? { |s| s == "X" || s == "O" }
   end
 
@@ -55,7 +55,7 @@ class Board
     "#{@spaces[0]} | #{@spaces[1]} | #{@spaces[2]} \n===+===+===\n #{@spaces[3]} | #{@spaces[4]} | #{@spaces[5]} \n===+===+===\n #{@spaces[6]} | #{@spaces[7]} | #{@spaces[8]} \n"
   end
 
-  def centre_grid_is_empty
+  def centre_grid_is_empty?
      @spaces[4] == "5"
   end
 

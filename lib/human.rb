@@ -19,19 +19,19 @@ class Human
   def input_to_move
     input = get_user_input
     validate(input)
-    return input if valid(input)
+    return input if valid?(input)
   end
 
   private
 
-  def valid(input)
-    !is_invalid(input) && !is_unavailable(input)
+  def valid?(input)
+    !is_invalid?(input) && !is_unavailable?(input)
   end
 
   def validate(input)
-    if is_invalid(input)
+    if is_invalid?(input)
       puts "the following input is invalid please try again"
-    elsif is_unavailable(input)
+    elsif is_unavailable?(input)
       puts "Please select another position"
     end
   end
@@ -44,11 +44,11 @@ class Human
     gets.chomp
   end
 
-  def is_unavailable(spot)
+  def is_unavailable?(spot)
     !board.is_available(spot)
   end
 
-  def is_invalid(input)
+  def is_invalid?(input)
     interface.validate(input)
   end
 end
