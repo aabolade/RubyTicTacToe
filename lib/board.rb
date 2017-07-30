@@ -3,12 +3,13 @@ class Board
   attr_reader :spaces
 
   def initialize
-    @spaces = ["0","1","2","3","4","5","6","7","8"]
+    @spaces = ["1","2","3","4","5","6","7","8","9"]
   end
 
   def is_available(spot)
-    return false if spot_is_out_of_bounds(spot)
-    @spaces[spot] != "X" && @spaces[spot] != "O"
+    spot_index = spot.to_i - 1
+    return false if spot_is_out_of_bounds(spot_index)
+    @spaces[spot_index] != "X" && @spaces[spot_index] != "O"
   end
 
   def spot_is_out_of_bounds(spot)
@@ -17,7 +18,8 @@ class Board
   end
 
   def assign_to_space(spot, player)
-    @spaces[spot] = player
+    spot_index = spot.to_i - 1
+    @spaces[spot_index] = player
   end
 
   def available_spaces
@@ -54,7 +56,7 @@ class Board
   end
 
   def centre_grid_is_empty
-     @spaces[4] == "4"
+     @spaces[4] == "5"
   end
 
 end

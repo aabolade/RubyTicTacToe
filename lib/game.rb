@@ -18,7 +18,7 @@ class Game
 
   def play_game
     puts display_board
-    puts "Enter [0-8]:"
+    puts "Enter [1-9]:"
     get_player_moves
     puts display_message_for_end_of_game
   end
