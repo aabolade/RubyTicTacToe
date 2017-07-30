@@ -8,11 +8,11 @@ class Game
   attr_reader :board, :player_1, :player_2, :interface
   attr_accessor :current_player
 
-  def initialize(players, interface, board = Board)
+  def initialize(player_1, player_2, interface, board = Board)
     @board = board.new
     @interface = interface
-    @player_1 = players[:player_1_type].new(players[:player_1_id], @board, interface)
-    @player_2 = players[:player_2_type].new(players[:player_2_id], @board, interface)
+    @player_1 = player_1[:type].new(player_1[:id], @board, interface)
+    @player_2 = player_2[:type].new(player_2[:id], @board, interface)
     @current_player
   end
 
@@ -26,13 +26,9 @@ class Game
   def get_player_moves
     until game_over_or_tie
       get_move_for(player_1)
-      get_move_for_second_player_unless_game_is_over
-    end
-  end
-
-  def get_move_for_second_player_unless_game_is_over
-    if game_not_over?
-      get_move_for(player_2)
+      if game_not_over?
+        get_move_for(player_2)
+      end
     end
   end
 

@@ -19,9 +19,7 @@ class Human
   def input_to_move
     input = get_user_input
     validate(input)
-    if valid(input)
-      spot = input.to_i
-    end
+    return input if valid(input)
   end
 
   private

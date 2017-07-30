@@ -2,17 +2,16 @@ require 'game'
 
 describe Game do
 
-  let(:player_1) {double(:player_1, :id => "id")}
-  let(:player_2) {double(:player_2)}
-  let(:player) {double(:player)}
-  let(:players) {{player_1_type: player_1, player_1_id: 1, player_2_type: player_2, player_2_id: 2}}
+  let(:player_type) {double(:player_type)}
+  let(:player_1) {{type: player_type, id: "X" }}
+  let(:player_2) {{type: player_type, id: "O"}}
+  let(:player) {double(:player, :id => "id")}
   let(:interface) {double(:interface)}
   let(:board) {double(:board)}
-  let(:game) {described_class.new(players, interface)}
+  let(:game) {described_class.new(player_1, player_2, interface)}
 
   before do
-    allow(player_1).to receive(:new).and_return(player)
-    allow(player_2).to receive(:new).and_return(player)
+    allow(player_type).to receive(:new).and_return(player)
     allow(player).to receive(:id)
   end
 
@@ -39,9 +38,9 @@ describe Game do
     end
 
     it "assigns the current player after each move" do
-      allow(player_1).to receive(:get_move)
-      game.get_move_for(player_1)
-      expect(game.current_player).to eq player_1.id
+      allow(player).to receive(:get_move)
+      game.get_move_for(game.player_1)
+      expect(game.current_player).to eq game.player_1.id
     end
   end
 

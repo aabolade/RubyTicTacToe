@@ -67,17 +67,17 @@ describe Interface do
  describe "creating a game" do
    describe "for a human" do
      it "creates a game with the choices set by the user" do
-       players_dictionary = {player_1_type: Human, player_1_id: "X", player_2_type: Computer, player_2_id: "O" }
+       players = [{type: Human, id: "X"}, {type: Computer, id: "O" }]
        allow(interface).to receive(:symbol).and_return("X")
        allow(interface).to receive(:user_is_first).and_return(true)
-       expect(interface.create_players_object(Human, Computer)).to eq players_dictionary
+       expect(interface.create_players(Human, Computer)).to eq players
      end
    end
 
    describe "for computer vs computer" do
      it "creates a game with default symbols for each player" do
-       players_dictionary = {player_1_type: Computer, player_1_id: "X", player_2_type: Computer, player_2_id: "O" }
-       expect(interface.create_players_object(Computer, Computer)).to eq players_dictionary
+       players = [{type: Computer, id: "X"}, {type: Computer, id: "O" }]
+       expect(interface.create_players(Computer, Computer)).to eq players
      end
    end
  end

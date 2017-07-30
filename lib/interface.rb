@@ -38,8 +38,8 @@ class Interface
   end
 
   def computer_computer
-    players_dictionary = create_players_object(Computer, Computer)
-    create_game(players_dictionary)
+    players = create_players(Computer, Computer)
+    create_game(players)
   end
 
   def human_computer
@@ -49,8 +49,8 @@ class Interface
   def set_up_players(player_1, player_2)
     select_symbol
     select_player_order
-    players_dictionary = create_players_object(player_1, player_2)
-    create_game(players_dictionary)
+    players = create_players(player_1, player_2)
+    create_game(players)
   end
 
   def select_symbol
@@ -71,20 +71,17 @@ class Interface
     end
   end
 
-  def create_players_object(player_1, player_2)
+  def create_players(player_1, player_2)
     players = make_game_players(player_1, player_2)
     if user_does_not_go_first
       players = players.reverse
+    else
+      players
     end
-    players_dictionary = create_dictionary(players)
   end
 
-  def create_dictionary(players)
-    {player_1_type: players.first[:type], player_1_id: players.first[:id], player_2_type: players.last[:type], player_2_id: players.last[:id]}
-  end
-
-  def create_game(dictionary, game = Game)
-    game = game.new(dictionary, self)
+  def create_game(players, game = Game)
+    game = game.new(players.first, players.last, self)
     game.play_game
   end
 

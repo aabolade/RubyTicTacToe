@@ -23,8 +23,8 @@ describe Human do
     it "assigns the input to the board" do
       allow(human).to receive(:get_user_input).and_return("1")
       allow(human).to receive(:is_invalid).with("1").and_return(false)
-      allow(human).to receive(:is_unavailable).with(0).and_return(false)
-      expect(board).to receive(:assign_to_space).with(0)
+      allow(human).to receive(:is_unavailable).with("1").and_return(false)
+      expect(board).to receive(:assign_to_space).with("1", id)
       human.get_move
     end
   end
