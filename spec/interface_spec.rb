@@ -10,6 +10,7 @@ describe Interface do
        $stdin = StringIO.new("1")
        expect(interface).to receive(:human_human)
        interface.present_game_options
+       interface.create_game_players
        $stdin = STDIN
      end
 
@@ -17,13 +18,15 @@ describe Interface do
        $stdin = StringIO.new("2")
        expect(interface).to receive(:computer_computer)
        interface.present_game_options
+       interface.create_game_players
        $stdin = STDIN
      end
 
-     it "chooses the game computer vs computer for selecting '2'" do
+     it "chooses the game computer vs computer for selecting '3'" do
        $stdin = StringIO.new("3")
        expect(interface).to receive(:human_computer)
        interface.present_game_options
+       interface.create_game_players
        $stdin = STDIN
      end
   end
@@ -70,14 +73,14 @@ describe Interface do
        players = [{type: Human, id: "X"}, {type: Computer, id: "O" }]
        allow(interface).to receive(:symbol).and_return("X")
        allow(interface).to receive(:user_is_first).and_return(true)
-       expect(interface.create_players(Human, Computer)).to eq players
+       expect(interface.setup_players(Human, Computer)).to eq players
      end
    end
 
    describe "for computer vs computer" do
      it "creates a game with default symbols for each player" do
        players = [{type: Computer, id: "X"}, {type: Computer, id: "O" }]
-       expect(interface.create_players(Computer, Computer)).to eq players
+       expect(interface.setup_players(Computer, Computer)).to eq players
      end
    end
  end

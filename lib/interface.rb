@@ -19,10 +19,9 @@ class Interface
       game_options
       game_selected = valid_game_selected
     end
-    select_game_for_user
   end
 
-  def select_game_for_user
+  def create_game_players
     case @game_type
     when "1"
       human_human
@@ -34,23 +33,22 @@ class Interface
   end
 
   def human_human
-    set_up_players(Human,Human)
+    setup_game_preferences
+    setup_players(Human,Human)
   end
 
   def computer_computer
-    players = create_players(Computer, Computer)
-    create_game(players)
+     setup_players(Computer, Computer)
   end
 
   def human_computer
-    set_up_players(Human, Computer)
+    setup_game_preferences
+    setup_players(Human, Computer)
   end
 
-  def set_up_players(player_1, player_2)
+  def setup_game_preferences
     select_symbol
     select_player_order
-    players = create_players(player_1, player_2)
-    create_game(players)
   end
 
   def select_symbol
@@ -71,7 +69,7 @@ class Interface
     end
   end
 
-  def create_players(player_1, player_2)
+  def setup_players(player_1, player_2)
     players = make_game_players(player_1, player_2)
     if user_does_not_go_first
       players = players.reverse
