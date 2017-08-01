@@ -50,7 +50,7 @@ class Computer
   end
 
   def game_is_over?
-    board.is_winner
+    board.is_winner?
   end
 
 end

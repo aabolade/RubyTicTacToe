@@ -24,7 +24,7 @@ class Game
   end
 
   def get_player_moves
-    until game_over_or_tie
+    until game_over_or_tie?
       get_move_for(player_1)
       if game_not_over?
         get_move_for(player_2)
@@ -58,7 +58,7 @@ class Game
   private
 
   def game_not_over?
-    !winner_present && !tie_game
+    !winner_present? && !tie_game?
   end
 
   def winner_present?

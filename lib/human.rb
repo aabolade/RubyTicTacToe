@@ -45,7 +45,7 @@ class Human
   end
 
   def is_unavailable?(spot)
-    !board.is_available(spot)
+    !board.is_available?(spot)
   end
 
   def is_invalid?(input)

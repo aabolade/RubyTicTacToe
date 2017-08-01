@@ -4,7 +4,8 @@ require './lib/game'
 
 class Interface
 
-  attr_reader :game_type, :symbol, :user_is_first
+  attr_reader :game_type, :symbol
+  attr_accessor :user_is_first
 
   def initialize
     @game_type
@@ -84,23 +85,34 @@ class Interface
   end
 
   def valid_game_selected
-    @game_type = get_user_input
+    set_game_type
     @game_type == "1"|| @game_type == "2"|| @game_type == "3"
   end
 
   def valid_symbol_selected
-    @symbol = get_user_input.upcase
+    set_symbol
     @symbol == "X" || @symbol == "O"
   end
 
   def valid_order_selected
-    order = get_user_input
-    @user_is_first = order == "Y"
-    order == "Y" || order == "N"
+    set_game_order
+    @user_is_first == "Y" || @user_is_first == "N"
+  end
+
+  def set_game_type
+    @game_type = get_user_input
+  end
+
+  def set_symbol
+    @symbol = get_user_input.upcase
+  end
+
+  def set_game_order
+    @user_is_first = get_user_input
   end
 
   def user_does_not_go_first
-    @user_is_first == false
+    @user_is_first == "N"
   end
 
   def validate(input)
